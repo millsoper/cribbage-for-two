@@ -82,9 +82,9 @@ export const CardTable = () => {
         />
         <HandOfCards cards={opponentHand} isOwnHand={false}/>
         <HandOfCards cards={ownHand} isOwnHand={true}/>
-        <span>{`Your hand has ${ownHand.length} cards`}</span>
-        <span>{`Your opponent's hand has ${opponentHand.length} cards`}</span>
-        <span>{`The deck has ${deck.length} cards`}</span>
+        <p>{`Your hand has ${ownHand.length} cards`}</p>
+        <p>{`Your opponent's hand has ${opponentHand.length} cards`}</p>
+        <p>{`The deck has ${deck.length} cards`}</p>
         <p>{`There are currently ${players.length} players in the game.`}</p>
         <ul>
           { players.map((player) => {
