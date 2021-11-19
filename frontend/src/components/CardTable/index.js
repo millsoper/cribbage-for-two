@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import ChatInput from './ChatInput'
-import ChatMessage from './ChatMessage'
+import Buttons from '../../Buttons'
+import { HandOfCards } from '../HandOfCards'
 
 const URL = 'ws://localhost:3030'
 
-const Chat = () => {
-  const [ name, setName] = useState('Bob');
-  const [ messages, setMessages ] = useState([]);
+export const CardTable = () => {
+  const [ name, setName] = useState('');
   const [ ws, setWs ] = useState(new WebSocket(URL)); 
   const [ deck, setDeck ] = useState([]);
   const [ deckTopCard, setDeckTopCard ] = useState(false);
@@ -19,7 +18,7 @@ const Chat = () => {
 
   useEffect(() => {
     ws.onopen = () => {
-      // on connecting, do nothing but log it to the console
+      // on connecting, log it to the console and ask what players are already present.
       console.log('connected');
       ws.send(JSON.stringify({ action: 'getPlayers'}));
     }
@@ -42,25 +41,13 @@ const Chat = () => {
     }
 
     ws.onclose = () => {
-      console.log('disconnected')
+      console.log('disconnected, trying to reconnect.')
       // automatically try to reconnect on connection loss
       setWs({ ws: new WebSocket(URL)});
     }
   }, [ws, deck, name, players, setPlayers, setDeck, setOwnHand, setOpponentHand]);
 
-  const addMessage = (message) =>
-    setMessages([message, ...messages])
-
-
-  const submitMessage = (name, messageString, ws) => {
-    // on submitting the ChatInput form, send the message, add it to the list and reset the input
-    const message = { name: name, message: messageString }
-    ws.send(JSON.stringify(message))
-    // addMessage(message)
-  }
-
   const dealCard = (ws, dealToSelf, name) => {
-    // on submitting the ChatInput form, send the message, add it to the list and reset the input
     const message = { action: 'dealCard', dealToSelf: dealToSelf, player: name }
     ws.send(JSON.stringify(message))
     setDealToSelf(!dealToSelf);
@@ -88,12 +75,13 @@ const Chat = () => {
             onChange={e => setName(e.target.value)}
           />
         </label>
-        <ChatInput
+        <Buttons
           ws={ws}
-          onSubmitMessage={messageString => submitMessage(name, messageString, ws)}
           onDealCard={() => dealCard(ws, dealToSelf, name)}
           joinGame={() => joinGame(ws, name)}
         />
+        <HandOfCards cards={opponentHand} isOwnHand={false}/>
+        <HandOfCards cards={ownHand} isOwnHand={true}/>
         <span>{`Your hand has ${ownHand.length} cards`}</span>
         <span>{`Your opponent's hand has ${opponentHand.length} cards`}</span>
         <span>{`The deck has ${deck.length} cards`}</span>
@@ -104,16 +92,6 @@ const Chat = () => {
             })
           }
         </ul>
-
-        {messages.map((message, index) =>
-          <ChatMessage
-            key={index}
-            message={message.message}
-            name={message.name}
-          />,
-        )}
       </div>
     )
   }
-
-export default Chat;

@@ -1,11 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
-import Chat from './Chat.js';
+import { CardTable } from './components/CardTable';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <Chat />
+      <CardTable />
     </div>
   );
 }

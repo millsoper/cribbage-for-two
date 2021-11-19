@@ -1,0 +1,4 @@
+.hand-of-cards {
+    display: flex;
+    flex-direction: row;
+}
