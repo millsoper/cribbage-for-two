@@ -1,0 +1,30 @@
+{
+  "name": "cribbage-backend",
+  "version": "1.0.0",
+  "description": "WebSocket backend for multiplayer cribbage using ws",
+  "main": "server.js",
+  "dependencies": {
+    "ws": "^8.2.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/millsoper/cribbage-for-two.git"
+  },
+  "keywords": [
+    "websockets",
+    "ws",
+    "cribbage",
+    "multiplayer"
+  ],
+  "author": "Mill Soper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/millsoper/cribbage-for-two/issues"
+  },
+  "homepage": "https://github.com/millsoper/cribbage-for-two#readme"
+}
