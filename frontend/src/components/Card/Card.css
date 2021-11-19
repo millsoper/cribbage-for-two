@@ -1,0 +1,102 @@
+.table {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 500px;
+    width: 600px;
+    margin: 0 auto;
+    border: 3px solid aliceblue;
+    align-items: center;
+    padding: 30px;
+  }
+  
+  .card-area {
+    background: lightblue;
+    padding: 20px;
+  }
+  
+  .card-area.opponent-area {
+    background: green;
+  }
+  
+  .card { 
+    height: 92px;
+    background: white;
+    border: 1px solid black;
+    width: 62px;
+    border-radius: 3px;
+    display: flex;
+    align-self: start;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 20px;
+    position: relative;
+    margin-right: 18px;
+  }
+  
+  .card:not(.facedown) {
+      cursor: pointer;
+  }
+  
+  .table-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-betweenk;
+  }
+  
+  .card:not(.facedown):hover {
+    box-shadow: 4px 4px turquoise;
+  }
+  
+  .card.focused:not(.facedown) {
+    top: 0px;
+    box-shadow: 4px 4px aqua;
+  }
+  
+  .card.facedown {
+    background: turquoise;
+    border: 2px solid navy;
+  }
+  
+  .card .red {
+    color: red;
+  }
+  
+  .card-head * {
+    position: absolute;
+    top: 6px;
+    line-height: 16px;
+  }
+  
+  .card-foot * {
+    position: absolute;
+    bottom: 6px;
+    line-height: 16px;
+  }
+  
+  .card-head .suit {
+    right: 2px;
+  }
+  
+  .card-foot .suit {
+    left: 2px;
+  }
+  
+  .card-head .rank {
+    left: 2px;
+  }
+  
+  .card-foot .rank {
+    right: 2px;
+  }
+  
+  .suit {
+    font-size: 12px;
+  }
+  
+  .hand-of-cards {
+    position: relative;
+    display: flex;
+    margin: 20px;
+  }
