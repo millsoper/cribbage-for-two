@@ -1,0 +1,17 @@
+.table-center {
+    display: flex;
+    flex-direction: row;
+}
+
+.card-area {
+    display: flex;
+    flex-direction: column;
+}
+
+.game-status {
+    padding: 20px;
+    color: #3e3e3e;
+    background: #fefefe;
+    align-self: start;
+    margin-top: 20px;
+}

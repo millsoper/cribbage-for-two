@@ -1,0 +1,81 @@
+  .card { 
+    height: 92px;
+    background: white;
+    width: 62px;
+    border-radius: 3px;
+    display: flex;
+    align-self: start;
+    justify-content: center;
+    align-items: center;
+    color: #5D5D5D;
+    font-size: 20px;
+    position: relative;
+    margin-right: 18px;
+    box-shadow: 1px 1px darkturquoise;
+    transition-property: margin-top;
+    transition-duration: .5s;
+  }
+  
+  .card:not(.facedown) {
+      cursor: pointer;
+  }
+  
+  .table-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-betweenk;
+  }
+  
+  .card:not(.facedown):hover {
+    box-shadow: 4px 4px #9fefe7;
+  }
+  
+  .card.focused:not(.facedown) {
+    margin-top: -10px;
+  }
+  
+  .card.facedown {
+    background: turquoise;
+  }
+  
+  .card .red {
+    color: #26867C;
+  }
+  
+  .card-head * {
+    position: absolute;
+    top: 8px;
+    line-height: 16px;
+  }
+  
+  .card-foot * {
+    position: absolute;
+    bottom: 8px;
+    line-height: 16px;
+  }
+  
+  .card-head .suit {
+    right: 4px;
+  }
+  
+  .card-foot .suit {
+    left: 4px;
+  }
+  
+  .card-head .rank {
+    left: 4px;
+  }
+  
+  .card-foot .rank {
+    right: 4px;
+  }
+  
+  .suit {
+    width: 18px;
+  }
+  
+  .hand-of-cards {
+    position: relative;
+    display: flex;
+    margin: 20px;
+  }
