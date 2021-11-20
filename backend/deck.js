@@ -1,7 +1,7 @@
 const rankIcons = ['K', 'Q', 'J', 'A'];
   
   const suitIcons = [
-    'spade',
+    'spades',
     'clubs',
     'diamonds',
     'hearts'

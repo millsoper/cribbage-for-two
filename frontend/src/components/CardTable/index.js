@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Buttons from '../../Buttons'
 import { HandOfCards } from '../HandOfCards'
+import "./CardTable.css";
 
 const URL = 'ws://localhost:3030'
 
@@ -64,7 +65,7 @@ export const CardTable = () => {
   }
 
     return (
-      <div>
+      <div className="card-table">
         <label htmlFor="name">
           Name:&nbsp;
           <input

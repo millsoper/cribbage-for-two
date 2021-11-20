@@ -1,38 +1,17 @@
-.table {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 500px;
-    width: 600px;
-    margin: 0 auto;
-    border: 3px solid aliceblue;
-    align-items: center;
-    padding: 30px;
-  }
-  
-  .card-area {
-    background: lightblue;
-    padding: 20px;
-  }
-  
-  .card-area.opponent-area {
-    background: green;
-  }
-  
   .card { 
     height: 92px;
     background: white;
-    border: 1px solid black;
     width: 62px;
     border-radius: 3px;
     display: flex;
     align-self: start;
     justify-content: center;
     align-items: center;
-    color: black;
+    color: #999;
     font-size: 20px;
     position: relative;
     margin-right: 18px;
+    border: #999;
   }
   
   .card:not(.facedown) {
@@ -46,21 +25,20 @@
   }
   
   .card:not(.facedown):hover {
-    box-shadow: 4px 4px turquoise;
+    box-shadow: 4px 4px #9fefe7;
   }
   
   .card.focused:not(.facedown) {
     top: 0px;
-    box-shadow: 4px 4px aqua;
+    box-shadow: 4px 4px turquoise;
   }
   
   .card.facedown {
     background: turquoise;
-    border: 2px solid navy;
   }
   
   .card .red {
-    color: red;
+    color: #26867C;
   }
   
   .card-head * {
@@ -92,7 +70,7 @@
   }
   
   .suit {
-    font-size: 12px;
+    width: 18px;
   }
   
   .hand-of-cards {

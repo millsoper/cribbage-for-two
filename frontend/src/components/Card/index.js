@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import "./Card.css";
 import classnames from "classnames";
+import clubs from "../../clubs.svg";
+import diamonds from "../../diamonds.svg";
+import hearts from "../../hearts.svg";
+import spades from "../../spades.svg";
 
 const rankIcons = {
   k: "🤴",
@@ -9,12 +13,12 @@ const rankIcons = {
   a: "A"
 };
 
-const suitIcons = {
-  spade: "♠️",
-  clubs: "♣️",
-  diamonds: "♦️",
-  hearts: "♥️"
-};
+const suits = {
+  hearts,
+  diamonds,
+  spades,
+  clubs
+}
 
 /* Each individual card */
 export const Card = ({ suit, rank, isFacingUp }) => {
@@ -40,6 +44,8 @@ export const Card = ({ suit, rank, isFacingUp }) => {
 // Originally I was going to try to position all the pips, but doesn't seem worth it at present.
 const CardContent = ({ suit, rank }) => {
   const isRoyalCard = rank in rankIcons;
+  console.log("suit: ", suit);
+  console.log("suit icon: ", suits[suit]);
 
   return (
     <div
@@ -48,13 +54,13 @@ const CardContent = ({ suit, rank }) => {
       )}
     >
       <div className="card-head">
-        <badge className="suit">{suitIcons[suit]}</badge>
+        <img className="suit" src={suits[suit]}/>
         <badge className="rank">{rank.toString().toUpperCase()}</badge>
       </div>
       {isRoyalCard && <badge>{rankIcons[rank]}</badge>}
       <div className="card-foot">
         <badge className="rank">{rank.toString().toUpperCase()}</badge>
-        <badge className="suit">{suitIcons[suit]}</badge>
+        <img className="suit" src={suits[suit]}/>
       </div>
     </div>
   );
