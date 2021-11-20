@@ -7,11 +7,13 @@
     align-self: start;
     justify-content: center;
     align-items: center;
-    color: #999;
+    color: #5D5D5D;
     font-size: 20px;
     position: relative;
     margin-right: 18px;
-    border: #999;
+    box-shadow: 1px 1px darkturquoise;
+    transition-property: margin-top;
+    transition-duration: .5s;
   }
   
   .card:not(.facedown) {
@@ -29,8 +31,7 @@
   }
   
   .card.focused:not(.facedown) {
-    top: 0px;
-    box-shadow: 4px 4px turquoise;
+    margin-top: -10px;
   }
   
   .card.facedown {
@@ -43,30 +44,30 @@
   
   .card-head * {
     position: absolute;
-    top: 6px;
+    top: 8px;
     line-height: 16px;
   }
   
   .card-foot * {
     position: absolute;
-    bottom: 6px;
+    bottom: 8px;
     line-height: 16px;
   }
   
   .card-head .suit {
-    right: 2px;
+    right: 4px;
   }
   
   .card-foot .suit {
-    left: 2px;
+    left: 4px;
   }
   
   .card-head .rank {
-    left: 2px;
+    left: 4px;
   }
   
   .card-foot .rank {
-    right: 2px;
+    right: 4px;
   }
   
   .suit {

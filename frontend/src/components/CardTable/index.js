@@ -6,7 +6,17 @@ import "./CardTable.css";
 const URL = 'ws://localhost:3030'
 
 export const CardTable = () => {
+
+  const gameSteps = {
+    'join': 'Enter a username to join a game.',
+    'wait-for-opponent': 'There are not enough players to start the game. Please wait for an opponent to join.',
+    'opponent-deal': 'Please wait for you opponent to deal the cards.',
+    'deal': 'It\'s your deal! Click the deck to deal the hands. (6 for you, and 6 for your opponent.)',
+    'startgame': 'THUNDERDOME.'
+  }
+
   const [ name, setName] = useState('');
+  const [ loggedIn, setIsLoggedIn ] = useState(false);
   const [ ws, setWs ] = useState(new WebSocket(URL)); 
   const [ deck, setDeck ] = useState([]);
   const [ deckTopCard, setDeckTopCard ] = useState(false);
@@ -14,10 +24,16 @@ export const CardTable = () => {
   const [ opponentHand, setOpponentHand ] = useState([]);
   const [ dealToSelf, setDealToSelf ] = useState(false);
   const [ players, setPlayers ] = useState([]);
+  const [ step, setStep] = useState('join');
 
   console.log("name: ", name);
 
   useEffect(() => {
+    if (step === 'wait-for-opponent' && players.length > 1){
+      const nextStep = players[1] === name ? 'opponent-deal' : 'deal';
+      setStep(nextStep);
+    }
+
     ws.onopen = () => {
       // on connecting, log it to the console and ask what players are already present.
       console.log('connected');
@@ -31,8 +47,6 @@ export const CardTable = () => {
       setDeck(message.deck);
       setPlayers(Object.keys(message.hands));
       Object.keys(message.hands).forEach((player) => {
-        console.log("Hand in question: ", player);
-        console.log("the player: ", name);
         if (player === name) {
           setOwnHand(message.hands[player])
         } else {
@@ -46,7 +60,7 @@ export const CardTable = () => {
       // automatically try to reconnect on connection loss
       setWs({ ws: new WebSocket(URL)});
     }
-  }, [ws, deck, name, players, setPlayers, setDeck, setOwnHand, setOpponentHand]);
+  }, [ws, deck, name, players, step, setStep, setPlayers, setDeck, setOwnHand, setOpponentHand]);
 
   const dealCard = (ws, dealToSelf, name) => {
     const message = { action: 'dealCard', dealToSelf: dealToSelf, player: name }
@@ -58,6 +72,7 @@ export const CardTable = () => {
     if (name){
       const message = JSON.stringify({ player: name, action: 'joinGame'});
       ws.send(message);
+      setStep('wait-for-opponent');
     } else {
       console.log("Please enter a name before starting the game.");
     }
@@ -66,33 +81,45 @@ export const CardTable = () => {
 
     return (
       <div className="card-table">
-        <label htmlFor="name">
-          Name:&nbsp;
-          <input
-            type="text"
-            id={'name'}
-            placeholder={'Enter your name...'}
-            value={name}
-            onChange={e => setName(e.target.value)}
+        { loggedIn ?
+        <p>{`Player name: ${name}`}</p> :
+        <>
+          <label htmlFor="name">
+            Name:&nbsp;
+            <input
+              type="text"
+              id={'name'}
+              placeholder={'Enter your name...'}
+              value={name}
+              onChange={e => { setName(e.target.value)}}
+            />
+          </label>
+          </>
+}
+
+          <Buttons
+            ws={ws}
+            onDealCard={() => dealCard(ws, dealToSelf, name)}
+            joinGame={() => { joinGame(ws, name); setIsLoggedIn(true)}}
           />
-        </label>
-        <Buttons
-          ws={ws}
-          onDealCard={() => dealCard(ws, dealToSelf, name)}
-          joinGame={() => joinGame(ws, name)}
-        />
-        <HandOfCards cards={opponentHand} isOwnHand={false}/>
-        <HandOfCards cards={ownHand} isOwnHand={true}/>
-        <p>{`Your hand has ${ownHand.length} cards`}</p>
-        <p>{`Your opponent's hand has ${opponentHand.length} cards`}</p>
-        <p>{`The deck has ${deck.length} cards`}</p>
-        <p>{`There are currently ${players.length} players in the game.`}</p>
-        <ul>
+        <div className="table-center">
+          <div className="card-area">
+            <HandOfCards cards={opponentHand} isOwnHand={false}/>
+            <HandOfCards cards={ownHand} isOwnHand={true}/>
+          </div>
+          <div className="game-status">
+            <p> Game status:</p>
+            <p>{ gameSteps[step] } </p>
+          </div>
+        </div>
+        <p>{`Cards remaining in deck: ${deck.length}`}</p>
+        <div>
+          <p>Players in game: </p>
           { players.map((player) => {
-              return <li>{player}</li>
+              return <p>{player}</p>
             })
           }
-        </ul>
+        </div>
       </div>
     )
   }
