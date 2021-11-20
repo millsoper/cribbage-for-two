@@ -1,5 +1,8 @@
 # cribbage-for-two
 
+![Screen Shot 2021-11-20 at 12 45 56 PM](https://user-images.githubusercontent.com/11150372/142740471-fa1ac378-5d45-43f8-9268-27585cc58ce9.png)
+
+
 ### Getting Started
 
 You will need to have node and npm installed on your computer for this.
